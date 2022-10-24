@@ -19,6 +19,8 @@ export default NavigationBar;
 const Wrapper = styled.nav`
     display: flex;
     justify-content: space-evenly;
+    padding: 15px 0;
+    background-color: blanchedalmond;
 `;
 
 const HomeNav = styled(NavLink)`
