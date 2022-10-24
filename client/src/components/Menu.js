@@ -2,7 +2,16 @@ import styled from "styled-components";
 
 import { MENU_DRINKS_ITEMS } from "./menu_constants";
 
+
 const Menu = () => {
+    const items = [];
+
+    const addToCart = (itemDetails) => {
+        items.push(itemDetails);
+    
+        localStorage.setItem("order", JSON.stringify(items));
+    };
+
     return (
         <Wrapper>
             {MENU_DRINKS_ITEMS.map((item) => {
@@ -12,7 +21,7 @@ const Menu = () => {
                         <CoffeeDetails>
                             <p>{item.name}</p>
                             <p>{item.price}</p>
-                            <button>Add to cart</button>
+                            <button onClick={() => addToCart(item)}>Add to cart</button>
                         </CoffeeDetails>
                     </CoffeeTile>
                 )
