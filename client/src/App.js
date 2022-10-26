@@ -4,6 +4,7 @@ import GlobalStyles from "./components/GlobalStyles";
 import NavigationBar from "./components/NavigationBar";
 import Menu from "./components/Menu";
 import YourOrderPage from "./components/YourOrderPage";
+import HomePage from "./components/HomePage";
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       <GlobalStyles/>
       <NavigationBar/>
       <Routes>
-        <Route path="/" element={<p>Home</p>} />
+        <Route path="/" element={<HomePage/>} />
         <Route path="/menu" element={<Menu/>} />
         <Route path="/login" element={<p>Login</p>} />
         <Route path="/order" element={<YourOrderPage/>} />
