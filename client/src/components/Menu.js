@@ -1,15 +1,30 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 import { MENU_DRINKS_ITEMS } from "./menu_constants";
 
+const INITIAL_STATE = [];
 
 const Menu = () => {
-    const items = [];
+    const [cart, setCart] = useState(INITIAL_STATE);
+
+    useEffect(() => {
+        if(localStorage.getItem("order")){
+            setCart(JSON.parse(localStorage.getItem("order")));
+        }
+    }, [])
 
     const addToCart = (itemDetails) => {
-        items.push(itemDetails);
+        if(localStorage.getItem("order")) {
+            const newCart = [...cart, itemDetails];
+            localStorage.setItem("order", JSON.stringify(newCart));
+            setCart(JSON.parse(localStorage.getItem("order")));
+        }
+        else {
+            localStorage.setItem("order", JSON.stringify([itemDetails]));
+            setCart(JSON.parse(localStorage.getItem("order")));
+        }
     
-        localStorage.setItem("order", JSON.stringify(items));
     };
 
     return (
