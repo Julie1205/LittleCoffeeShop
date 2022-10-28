@@ -1,12 +1,25 @@
 const express = require("express");
 const morgan = require("morgan");
+
+const { 
+    connectToMongoDb,  
+    closeMongoDb 
+} = require("./mongoDBConnection/mongoDBConnect");
+
+const { MENU_COLLECTION } = require("./constants/mongoDbConstants");
+
 const app = express();
 const port = 8000;
 
 app.use(morgan("tiny"));
 app.use(express.json());
 
-app.get("/hello", (req, res) => res.status(200).json({status: 200, message: "hello"}))
+app.get("/menu", async(req, res) => {
+    const db = req.app.locals.db;
+    const results = await db.collection(MENU_COLLECTION).find().toArray();
+
+    return res.status(200).json({status: 200, data: results})
+});
 
 app.get("*", (req, res) => {
     res.status(404).json({
@@ -15,6 +28,14 @@ app.get("*", (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+connectToMongoDb()
+.then(db => {
+        app.locals.db = db;
+        app.listen(port, () => {
+            console.log(`Server listening on port ${port}`);
+        });
 });
+
+//close connection to MongoDb 
+process.on('SIGINT', closeMongoDb);
+process.on('SIGTERM', closeMongoDb);

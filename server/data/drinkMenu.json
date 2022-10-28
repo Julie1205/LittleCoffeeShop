@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Black Coffee", 
+        "price": "2.99$", 
+        "image": "https://res.cloudinary.com/tastebuds32/image/upload/v1666979377/black_coffee_sqbmlm.jpg"
+    },
+    {
+        "name": "Caramel Coffee", 
+        "price": "4.00$", 
+        "image": "https://res.cloudinary.com/tastebuds32/image/upload/v1666979376/caramel_coffee_aojgzw.jpg"
+    },
+    {
+        "name": "Chai", 
+        "price": "3.50$", 
+        "image": "https://res.cloudinary.com/tastebuds32/image/upload/v1666979376/chai_sedvai.jpg"
+    },
+    {
+        "name": "Frozen Chocolate", 
+        "price": "4.50$", 
+        "image": "https://res.cloudinary.com/tastebuds32/image/upload/v1666979376/chocolat_d6jvix.jpg"
+    },
+    {
+        "name":"Milk Coffee", 
+        "price": "3.00$", 
+        "image": "https://res.cloudinary.com/tastebuds32/image/upload/v1666979376/milk_coffee_cuyqhp.jpg"
+    },
+    {
+        "name": "Toffee Coffee", 
+        "price": "4.75$", 
+        "image": "https://res.cloudinary.com/tastebuds32/image/upload/v1666979376/milk_coffee_cuyqhp.jpg"
+    }
+]
