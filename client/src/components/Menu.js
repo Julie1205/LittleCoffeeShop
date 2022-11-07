@@ -1,18 +1,38 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-import { MENU_DRINKS_ITEMS } from "./menu_constants";
-
 const INITIAL_STATE = [];
 
 const Menu = () => {
     const [cart, setCart] = useState(INITIAL_STATE);
+    const [menuItems, setMenuItems] = useState(INITIAL_STATE);
 
     useEffect(() => {
         if(localStorage.getItem("order")){
             setCart(JSON.parse(localStorage.getItem("order")));
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const getMenu = async () => {
+            try{
+                const responseForMenu = await fetch("/menu");
+                if(responseForMenu.ok) {
+                    const parsedMenuResponse = await responseForMenu.json();
+                    setMenuItems(parsedMenuResponse.data);
+                } else {
+                    throw new Error("cannot load menu.");
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        };
+
+        getMenu();
+
+    }, []);
+
 
     const addToCart = (itemDetails) => {
         if(localStorage.getItem("order")) {
@@ -29,7 +49,7 @@ const Menu = () => {
 
     return (
         <Wrapper>
-            {MENU_DRINKS_ITEMS.map((item) => {
+            {menuItems.map((item) => {
                 return (
                     <CoffeeTile key={item.name}>
                         <CoffeeImg src={item.image} alt={item.name}/>

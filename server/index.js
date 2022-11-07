@@ -17,8 +17,11 @@ app.use(express.json());
 app.get("/menu", async(req, res) => {
     const db = req.app.locals.db;
     const results = await db.collection(MENU_COLLECTION).find().toArray();
-
-    return res.status(200).json({status: 200, data: results})
+    if(results.length === 0) {
+        return res.status(404).json( { status: 404, message: "Menu not found." } );
+    } else {
+        return res.status(200).json({status: 200, data: results});
+    }
 });
 
 app.get("*", (req, res) => {
