@@ -13,6 +13,7 @@ const client = new MongoClient(MONGO_URI, options);
 const connectToMongoDb = async () => {
     try {
         await client.connect();
+        console.log("mongoDb connected");
         return client.db(DATABASE_NAME);
     }
     catch (err) {

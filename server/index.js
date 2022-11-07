@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const { 
     connectToMongoDb,  
     closeMongoDb 
-} = require("./mongoDBConnection/mongoDBConnect");
+} = require("./connection/mongoDB");
 
 const { MENU_COLLECTION } = require("./constants/mongoDbConstants");
 
@@ -28,13 +28,15 @@ app.get("*", (req, res) => {
     });
 });
 
-connectToMongoDb()
-.then(db => {
-        app.locals.db = db;
-        app.listen(port, () => {
-            console.log(`Server listening on port ${port}`);
-        });
-});
+const connect = async () => {
+    const db = await connectToMongoDb();
+    app.locals.db = db;
+    app.listen(port, () => {
+        console.log(`Server listening on port ${port}`);
+    });
+};
+
+connect();
 
 //close connection to MongoDb 
 process.on('SIGINT', closeMongoDb);
