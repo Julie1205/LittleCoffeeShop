@@ -6,7 +6,7 @@ const {
     closeMongoDb 
 } = require("./connection/mongoDB");
 
-const { MENU_COLLECTION } = require("./constants/mongoDbConstants");
+const { MENU_COLLECTION } = require("./constants/mongoDB");
 
 const app = express();
 const port = 8000;
