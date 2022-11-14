@@ -26,6 +26,32 @@ app.get("/menu", async(req, res) => {
     }
 });
 
+app.post("/user/login", async (req, res) => {
+    const db = req.app.locals.db;
+    const { email, password } = req.body;
+    console.log(email)
+
+    try {
+        const result = await db.collection(USERS_COLLECTION).findOne( { "email": email } );
+        if(result) {
+            const match = await bcrypt.compare(password, result.password);
+
+            if(match) {
+                return res.status(200).json( { status: 200, message: "User successfully logged in", data: { firstName: result.firstName, lastName: result.lastName} } );
+            } else {
+                return res.status(404).json( { status: 404, message: "incorrect password" } );
+            }
+
+        } else {
+            return res.status(404).json( { status: 404, message: "user not found." } );
+        }
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).json( { status: 500, message: err.message } );
+    }
+
+});
+
 app.post("/user", async(req, res) => {
     const db = req.app.locals.db;
     const {
